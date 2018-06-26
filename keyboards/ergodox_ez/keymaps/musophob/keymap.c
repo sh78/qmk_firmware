@@ -7,9 +7,10 @@
 #define VERSION_STRING QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION
 #define _______ KC_TRNS
 #define X_____X KC_TRNS
-#define TO_NORM TO(NORM)
-#define TO_BASE TO(BASE)
-#define TO_MDIA TO(MDIA)
+#define TO_NORM  TT(NORM)
+#define TO_BASE  TO(BASE)
+#define TO_MDIA  TT(MDIA)
+#define TO_REACH TT(REACH)
 
 /* enum planck_keycodes { */
 /*   QWERTY = SAFE_RANGE, */
@@ -38,7 +39,6 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-
   /* Insert mode
   *
   * ,--------------------------------------------------.           ,--------------------------------------------------.
@@ -50,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * |--------+------+------+------+------+------|   -  |           |   =  |------+------+------+------+------+--------|
   * |  ⇧ /(  |   Z  |   X  |   C  |   V  |  B   |      |           |      |   N  |   M  |   ,  |   .  |   /  | R⇧ /)  |
   * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
-  *   |     |      |      |      |   TT1 |                                       | TT2  |  ←   |  ↓   |  ↑   |  →   |
+  *   |      |      |      | MDIA | NORM |                                       |REACH |  ←   |  ↓   |  ↑   |  →   |
   *   `----------------------------------'                                       `----------------------------------'
   *                                        ,-------------.       ,-------------.
   *                                        |      |      |       |      |      |
@@ -66,10 +66,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB         , KC_Q         , KC_W         , KC_E         , KC_R         , KC_T            , KC_LBRC ,
     LCTL_T(KC_ESC) , LSFT_T(KC_A) , LCTL_T(KC_S) , LALT_T(KC_D) , LGUI_T(KC_F) , ALL_T(KC_G)     ,
     KC_LSPO        , KC_Z         , KC_X         , KC_C         , KC_V         , KC_B            , KC_MINS ,
-    X_____X        , X_____X      , X_____X      , X_____X      , TT(MDIA)     ,
+    X_____X        , X_____X      , X_____X      , TO_MDIA      , TO_NORM      ,
 
-    X_____X , X_____X ,
-    X_____X ,
+              X_____X , X_____X ,
+                        X_____X ,
     KC_BSPC , KC_DEL  , X_____X ,
 
     // Right Hand
@@ -77,15 +77,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_RBRC        , KC_Y         , KC_U         , KC_I         , KC_O         , KC_P            , KC_BSLS         ,
                      ALL_T(KC_H)  , RGUI_T(KC_J) , RALT_T(KC_K) , RCTL_T(KC_L) , RSFT_T(KC_SCLN) , RCTL_T(KC_QUOT) ,
     KC_EQL         , KC_N         , KC_M         , KC_COMM      , KC_DOT       , KC_SLSH         , KC_RSPC         ,
-                                    TT(NORM)     , KC_LEFT      , KC_DOWN      , KC_UP           , KC_RIGHT        ,
+                                    TO_REACH     , KC_LEFT      , KC_DOWN      , KC_UP           , KC_RIGHT        ,
 
     X_____X , X_____X ,
     X_____X ,
     X_____X , KC_ENT  , KC_SPC
   ),
 
-  /* Normal (vim) mode
-  *
+  /* Normal (vim) mode 
   * ,--------------------------------------------------.           ,--------------------------------------------------.
   * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
   * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
@@ -95,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
   * | SHIFT  |      |      | CHNG | VISL | BACK |      |           |      | NEXT | PREV |      |      |      | SHIFT  |
   * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
-  *   |      |      |      |      |      |                                       | TO 0 |      |      |      |      |
+  *   |      |      |      | MDIA | BASE |                                       |REACH |      |      |      |      |
   *   `----------------------------------'                                       `----------------------------------'
   *                                        ,-------------.       ,-------------.
   *                                        |      |      |       |      |      |
@@ -111,18 +110,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     X_____X , X_____X , VIM_W   , VIM_E   , X_____X , X_____X , X_____X ,
     X_____X , VIM_A   , VIM_S   , VIM_D   , X_____X , X_____X ,
     KC_LSFT , X_____X , VIM_X   , VIM_C   , VIM_V   , VIM_B   , X_____X ,
-    X_____X , X_____X , X_____X , X_____X , X_____X ,
+    X_____X , X_____X , X_____X , TO_MDIA , TO_BASE ,
 
-    X_____X, X_____X ,
-    X_____X,
-    KC_BSPC,  KC_DEL ,_______,
+             X_____X, X_____X,
+                      X_____X,
+    KC_BSPC, KC_DEL , X_____X,
 
     // Right Hand
     X_____X , X_____X , X_____X , X_____X , X_____X , X_____X  , X_____X ,
     X_____X , VIM_Y   , VIM_U   , VIM_I   , VIM_O   , VIM_P    , X_____X ,
               VIM_H   , VIM_J   , VIM_K   , VIM_L   , X_____X  , X_____X ,
     X_____X , VIM_N   , X_____X , X_____X , X_____X , VIM_SLSH , KC_RSFT ,
-                        TO_BASE , X_____X , X_____X , X_____X  , X_____X ,
+                        TO_REACH , X_____X , X_____X , X_____X  , X_____X ,
 
     X_____X, X_____X,
     X_____X,
@@ -136,23 +135,69 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     X_____X , X_____X , X_____X , X_____X , X_____X , X_____X , X_____X ,
     X_____X , X_____X , X_____X , X_____X , X_____X , X_____X ,
     X_____X , X_____X , X_____X , X_____X , X_____X , X_____X , X_____X ,
-    X_____X , X_____X , X_____X , X_____X , TO_BASE ,
+    X_____X , X_____X , X_____X , TO_BASE , TO_NORM ,
 
-            KC_F14,KC_F15,
-                    X_____X,
-    KC_MFFD,KC_MPRV,X_____X,
+              KC_F14  , KC_F15  ,
+                        X_____X ,
+    KC_MFFD , KC_MPRV , X_____X ,
 
     // Right Hand
     X_____X , KC_F6         , KC_F7   , KC_F8   , KC_F9   , KC_F10        , KC_PWR  ,
     X_____X , SGUI(KC_LBRC) , KC_BTN1 , KC_MS_U , KC_BTN2 , SGUI(KC_RBRC) , X_____X ,
               LGUI(KC_LBRC) , KC_MS_L , KC_MS_D , KC_MS_R , LGUI(KC_RBRC) , X_____X ,
     X_____X , X_____X       , X_____X , X_____X , X_____X , X_____X       , X_____X ,
-              X_____X                 , KC_LEFT , KC_DOWN , KC_UP         , KC_RGHT ,
+                              TO_REACH, KC_LEFT , KC_DOWN , KC_UP         , KC_RGHT ,
 
-    KC_VOLD,KC_VOLU,
-    KC_MUTE,
-    X_____X,KC_MSTP,KC_MPLY
+    KC_VOLD , KC_VOLU,
+    KC_MUTE ,
+    X_____X , KC_MSTP , KC_MPLY
   ),
+
+  /* Reachability™ mode
+  *
+  * ,--------------------------------------------------.           ,--------------------------------------------------.
+  * |   ⎋    |      |      |      |      |      |      |           |      |      |      |      |      |      |  CAPS  |
+  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
+  * |   ⇥    |   !  |   @  |   #  |   $  |   %  |  [   |           |   ]  |   ^  |   &  |   *  |   [  |   ]  |   \    |
+  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+  * |    `   |   1  |   2  |   3  |   4  |   5  |------|           |------|   6  |   7  |   8  |   9  |   0  |   '    |
+  * |--------+------+------+------+------+------|   -  |           |   =  |------+------+------+------+------+--------|
+  * |  ⇧ /(  |      |      |      |      |      |      |           |      |   -  |   =  |   ,  |   .  |   /  | R⇧ /)  |
+  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+  *   |      |      |      | MDIA | NORM |                                       | BASE |  ←   |  ↓   |  ↑   |  →   |
+  *   `----------------------------------'                                       `----------------------------------'
+  *                                        ,-------------.       ,-------------.
+  *                                        |      |      |       |      |      |
+  *                                 ,------|------|------|       |------+------+------.
+  *                                 |      |      |      |       |      |      |      |
+  *                                 | BSPC |DELETE|------|       |------| ENTER| SPC  |
+  *                                 |      |      |      |       |      |      |      |
+  *                                 `--------------------'       `--------------------'
+  */
+  [REACH] = LAYOUT_ergodox(
+    // Left Hand
+    KC_ESC   , X_____X , X_____X , X_____X  , X_____X  , X_____X  , X_____X  ,
+    KC_TAB   , KC_EXLM , KC_AT   , KC_HASH  , KC_DLR   , KC_PERC  , KC_LBRC  ,
+    KC_GRAVE , KC_1    , KC_2    , KC_3     , KC_4     , KC_5     ,
+    KC_LSPO  , X_____X , X_____X , X_____X  , X_____X  , X_____X  , KC_MINS  ,
+    X_____X  , X_____X , X_____X , TO_MDIA  , TO_NORM  ,
+
+               X_____X , X_____X ,
+                         X_____X ,
+    KC_BSPC  , KC_DEL  , X_____X ,
+
+    // Right Hand
+    X_____X   , X_____X , X_____X   , X_____X , X_____X  , X_____X  , KC_CAPS  ,
+    KC_RBRC   , KC_CIRC , KC_AMPR   , KC_ASTR , KC_LBRC  , KC_RBRC  , KC_BSLS  ,
+                KC_6    , KC_7      , KC_8    , KC_9     , KC_0     , KC_QUOT  ,
+    KC_EQL    , KC_MINS , KC_EQL    , KC_COMM , KC_DOT   , KC_SLSH  , KC_RSPC  ,
+                          TO_REACH  , KC_LEFT , KC_DOWN  , KC_UP    , KC_RIGHT ,
+
+    X_____X   , X_____X ,
+    X_____X   ,
+    X_____X   , KC_ENT  , KC_SPC
+  ),
+
 };
 
 const uint16_t PROGMEM fn_actions[] = {

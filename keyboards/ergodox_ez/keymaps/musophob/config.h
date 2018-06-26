@@ -5,7 +5,7 @@
 #define BASE 0
 #define NORM 1
 #define MDIA 2
-#define MOUSE 3
+#define REACH 3
 
 #include "../../config.h"
 
