@@ -11,6 +11,31 @@
 #define TO_BASE TO(BASE)
 #define TO_MDIA TO(MDIA)
 
+/* enum planck_keycodes { */
+/*   QWERTY = SAFE_RANGE, */
+/*   COLEMAK, */
+/*   DVORAK, */
+/*   PLOVER, */
+/*   LOWER, */
+/*   RAISE, */
+/*   BACKLIT, */
+/*   EXT_PLV, */
+/*   DYNAMIC_MACRO_RANGE, */
+/* }; */
+/* #include "dynamic_macro.h" */
+
+/* // Tap Dance Declarations */
+/* enum { */
+/*     SHIFT_A = 0, */
+/* }; */
+
+/* //Tap Dance Definitions */
+/* qk_tap_dance_action_t tap_dance_actions[] = { */
+/*   //Tap once for Esc, twice for Caps Lock */
+/*   [SHIFT_A]  = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_A) */
+/* // Other declarations would go here, separated by commas, if you have them */
+/* }; */
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
@@ -37,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   */
   [BASE] = LAYOUT_ergodox(
     // Left Hand
-    KC_GRAVE       , KC_1         , KC_2         , KC_3         , KC_4         , KC_5            , KC_CAPS ,
+    KC_GRAVE       , KC_1         , KC_2         , KC_3         , KC_4         , KC_5            , X_____X ,
     KC_TAB         , KC_Q         , KC_W         , KC_E         , KC_R         , KC_T            , KC_LBRC ,
     LCTL_T(KC_ESC) , LSFT_T(KC_A) , LCTL_T(KC_S) , LALT_T(KC_D) , LGUI_T(KC_F) , ALL_T(KC_G)     ,
     KC_LSPO        , KC_Z         , KC_X         , KC_C         , KC_V         , KC_B            , KC_MINS ,
@@ -48,11 +73,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_BSPC , KC_DEL  , X_____X ,
 
     // Right Hand
-    X_____X        , KC_6         , KC_7         , KC_8         , KC_9         , KC_0            , KC_MINS         ,
+    X_____X        , KC_6         , KC_7         , KC_8         , KC_9         , KC_0            , KC_CAPS         ,
     KC_RBRC        , KC_Y         , KC_U         , KC_I         , KC_O         , KC_P            , KC_BSLS         ,
                      ALL_T(KC_H)  , RGUI_T(KC_J) , RALT_T(KC_K) , RCTL_T(KC_L) , RSFT_T(KC_SCLN) , RCTL_T(KC_QUOT) ,
     KC_EQL         , KC_N         , KC_M         , KC_COMM      , KC_DOT       , KC_SLSH         , KC_RSPC         ,
-    TT(NORM)       , KC_RBRC      , KC_RPRN      , KC_RALT      , KC_RCTL      ,
+                                    TT(NORM)     , KC_LEFT      , KC_DOWN      , KC_UP           , KC_RIGHT        ,
 
     X_____X , X_____X ,
     X_____X ,
@@ -68,7 +93,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
   * |    ⎋   |      |      |  DEL |      |      |------|           |------|  ←   |  ↓   |  ↑   |  →   |      |    ⎋   |
   * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
-  * | SHIFT  |      |      | CHNG | VISL | BACK |      |           |      |      |      |      |      |      | SHIFT  |
+  * | SHIFT  |      |      | CHNG | VISL | BACK |      |           |      | NEXT | PREV |      |      |      | SHIFT  |
   * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
   *   |      |      |      |      |      |                                       | TO 0 |      |      |      |      |
   *   `----------------------------------'                                       `----------------------------------'
@@ -93,11 +118,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_BSPC,  KC_DEL ,_______,
 
     // Right Hand
-    X_____X , X_____X , X_____X , X_____X , X_____X , X_____X , X_____X ,
-    X_____X , VIM_Y   , VIM_U   , VIM_I   , VIM_O   , VIM_P   , X_____X ,
-              VIM_H   , VIM_J   , VIM_K   , VIM_L   , X_____X , X_____X ,
-    X_____X , X_____X , X_____X , X_____X , X_____X , X_____X , KC_RSFT ,
-              TO_BASE , X_____X , X_____X , X_____X , X_____X ,
+    X_____X , X_____X , X_____X , X_____X , X_____X , X_____X  , X_____X ,
+    X_____X , VIM_Y   , VIM_U   , VIM_I   , VIM_O   , VIM_P    , X_____X ,
+              VIM_H   , VIM_J   , VIM_K   , VIM_L   , X_____X  , X_____X ,
+    X_____X , VIM_N   , X_____X , X_____X , X_____X , VIM_SLSH , KC_RSFT ,
+                        TO_BASE , X_____X , X_____X , X_____X  , X_____X ,
 
     X_____X, X_____X,
     X_____X,
@@ -118,11 +143,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_MFFD,KC_MPRV,X_____X,
 
     // Right Hand
-    X_____X , KC_F6   , KC_F7   , KC_F8   , KC_F9   , KC_F10  , KC_PWR  ,
-    X_____X , X_____X , KC_BTN1 , KC_MS_U , KC_BTN2 , X_____X , X_____X ,
-              X_____X , KC_MS_L , KC_MS_D , KC_MS_R , KC_SCLN , KC_QUOT ,
-    X_____X , X_____X , X_____X , X_____X , X_____X , X_____X , X_____X ,
-                        X_____X , KC_LEFT , KC_DOWN , KC_UP   , KC_RGHT ,
+    X_____X , KC_F6         , KC_F7   , KC_F8   , KC_F9   , KC_F10        , KC_PWR  ,
+    X_____X , SGUI(KC_LBRC) , KC_BTN1 , KC_MS_U , KC_BTN2 , SGUI(KC_RBRC) , X_____X ,
+              LGUI(KC_LBRC) , KC_MS_L , KC_MS_D , KC_MS_R , LGUI(KC_RBRC) , X_____X ,
+    X_____X , X_____X       , X_____X , X_____X , X_____X , X_____X       , X_____X ,
+              X_____X                 , KC_LEFT , KC_DOWN , KC_UP         , KC_RGHT ,
 
     KC_VOLD,KC_VOLU,
     KC_MUTE,
@@ -144,6 +169,10 @@ return MACRO_NONE;
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  /* if (!process_record_dynamic_macro(keycode, record)) { */
+  /*   return false; */
+  /* } */
+
   bool SHIFTED = (keyboard_report->mods & MOD_BIT(KC_LSFT)) |
                  (keyboard_report->mods & MOD_BIT(KC_RSFT));
 
@@ -248,6 +277,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
 
+    case VIM_N:
+      if (record->event.pressed) { SHIFTED ? VIM_FIND_PREV() : VIM_FIND_NEXT(); }
+      return false;
+
     case VIM_O:
       if (record->event.pressed) { SHIFTED ? VIM_OPEN_ABOVE() : VIM_OPEN(); }
       return false;
@@ -288,6 +321,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case VIM_Y:
       if (record->event.pressed) { SHIFTED ? VIM_YANK_LINE() : VIM_YANK(); }
+      return false;
+
+    case VIM_SLSH:
+      if (record->event.pressed) { VIM_FIND(); }
       return false;
 
     // dynamically generate these.

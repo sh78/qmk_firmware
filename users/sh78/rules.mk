@@ -1,0 +1,2 @@
+TAP_DANCE_ENABLE = yes
+SRC += sh78.c

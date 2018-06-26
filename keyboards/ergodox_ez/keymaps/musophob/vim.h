@@ -24,6 +24,7 @@ enum custom_keycodes {
   VIM_J,
   VIM_K,
   VIM_L,
+  VIM_N,
   VIM_O,
   VIM_P,
   VIM_S,
@@ -33,6 +34,7 @@ enum custom_keycodes {
   VIM_W,
   VIM_X,
   VIM_Y,
+  VIM_SLSH,
   EPRM,
   VRSN,
   RGB_SLD,
@@ -63,6 +65,9 @@ void VIM_DELETE_UP(void);
 void VIM_DELETE_WHOLE_LINE(void);
 void VIM_DELETE_WORD(void);
 void VIM_END(void);
+void VIM_FIND(void);
+void VIM_FIND_NEXT(void);
+void VIM_FIND_PREV(void);
 void VIM_JOIN(void);
 void VIM_OPEN(void);
 void VIM_OPEN_ABOVE(void);
@@ -150,7 +155,7 @@ void VIM_APPEND(void) {
 
 /**
  * Vim-like `back` command
- * Simulates vim's `b` command by sending ⌥←
+ * Simulates vim's `b` command by sending ⌥ ←
  */
 void VIM_BACK(void) {
   print("\e[31mb\e[0m");
@@ -159,7 +164,7 @@ void VIM_BACK(void) {
 
 /**
  * Vim-like `cut` command
- * Simulates vim's `x` command by sending ⇧→ then ⌘X.
+ * Simulates vim's `x` command by sending ⇧ → then ⌘ X.
  */
 void VIM_CUT(void) {
   print("\e[31mx\e[0m");
@@ -177,8 +182,38 @@ void VIM_DOWN(void) {
 }
 
 /**
+ * Vim-like `find` command
+ * Simulates vim's `/` command by sending ⌘ F
+ */
+void VIM_FIND(void) {
+  print("\e[31me\e[0m");
+  CMD(KC_F);
+  layer_on(BASE);
+}
+
+/**
+ * Vim-like `next` command
+ * Simulates vim's `n` command by sending ⌘ G
+ */
+void VIM_FIND_NEXT(void) {
+  print("\e[31me\e[0m");
+  CMD(KC_G);
+}
+
+/**
+ * Vim-like `prev` command
+ * Simulates vim's `e` command by sending ⌘ ⇧ G
+ */
+void VIM_FIND_PREV(void) {
+  print("\e[31me\e[0m");
+  PRESS(KC_LSHIFT);
+    CMD(KC_G);
+  RELEASE(KC_LSHIFT);
+}
+
+/**
  * Vim-like `end` command
- * Simulates vim's `e` command by sending ⌥→
+ * Simulates vim's `e` command by sending ⌥ →
  */
 void VIM_END(void) {
   print("\e[31me\e[0m");
@@ -197,7 +232,7 @@ void VIM_LEFT(void) {
 
 /**
  * Vim-like `open` command.
- * Works by sending ⌘→ to move to the end of the line, `enter` to open a new line,
+ * Works by sending ⌘ → to move to the end of the line, `enter` to open a new line,
  * then switching to insert mode.
  */
 void VIM_OPEN(void) {
@@ -210,7 +245,7 @@ void VIM_OPEN(void) {
 
 /**
  * Vim-like `put` command
- * Simulates vim's `p` command by sending ⌘V
+ * Simulates vim's `p` command by sending ⌘ V
  */
 void VIM_PUT(void) {
   print("\e[31mp\e[0m");
@@ -220,7 +255,7 @@ void VIM_PUT(void) {
 
 /**
  * Vim-like `put before` command
- * Simulates vim's `P` command by sending ↑, ⌘←, then ⌘V
+ * Simulates vim's `P` command by sending ↑, ⌘ ←, then ⌘ V
  */
 void VIM_PUT_BEFORE(void) {
   print("\e[31mP\e[0m");
@@ -242,8 +277,8 @@ void VIM_RIGHT(void) {
 
 /**
  * Vim-like `substitute` command
- * Simulates vim's `s` command by sending ⇧→ to select the next character, then
- * ⌘X to cut it, then entering insert mode.
+ * Simulates vim's `s` command by sending ⇧ → to select the next character, then
+ * ⌘ X to cut it, then entering insert mode.
  */
 void VIM_SUBSTITUTE(void) {
   print("\e[31ms\e[0m");
@@ -255,7 +290,7 @@ void VIM_SUBSTITUTE(void) {
 
 /**
  * Vim-like `undo` command
- * Simulates vim's `u` command by sending ⌘Z
+ * Simulates vim's `u` command by sending ⌘ Z
  */
 void VIM_UNDO(void) {
   print("\e[31mu\e[0m");
@@ -291,7 +326,7 @@ void VIM_WORD(void) {
 
 /**
  * Vim-like `yank` command
- * Simulates vim's `y` command by sending ⌘C
+ * Simulates vim's `y` command by sending ⌘ C
  */
 void VIM_YANK(void) {
   print("\e[31my\e[0m");
@@ -301,7 +336,7 @@ void VIM_YANK(void) {
 
 /**
  * Vim-like `yank line` command
- * Simulates vim's `y` command by sending ⌘← then ⇧⌘→ then ⌘C
+ * Simulates vim's `y` command by sending ⌘ ← then ⇧ ⌘ → then ⌘ C
  */
 void VIM_YANK_LINE(void) {
   print("\e[31mY\e[0m");
@@ -326,7 +361,7 @@ void VIM_YANK_LINE(void) {
 
 /**
  * Vim-like `append to line` command
- * Simulates vim's `A` command by sending ⌘→ then switching to insert mode.
+ * Simulates vim's `A` command by sending ⌘ → then switching to insert mode.
  */
 void VIM_APPEND_LINE(void) {
   print("\e[31mA\e[0m");
@@ -337,7 +372,7 @@ void VIM_APPEND_LINE(void) {
 
 /**
  * Vim-like `change line` command
- * Simulates vim's `C` command by sending ⌃K then switching to insert mode.
+ * Simulates vim's `C` command by sending ⌃ K then switching to insert mode.
  */
 void VIM_CHANGE_LINE(void) {
   print("\e[31mC\e[0m");
@@ -348,7 +383,7 @@ void VIM_CHANGE_LINE(void) {
 
 /**
  * Vim-like 'delete line' command
- * Simulates vim's `D` command by sending ⌃K to kill the line
+ * Simulates vim's `D` command by sending ⌃ K to kill the line
  */
 void VIM_DELETE_LINE(void) {
   print("\e[31mD\e[0m");
@@ -358,7 +393,7 @@ void VIM_DELETE_LINE(void) {
 
 /**
  * Vim-like 'join lines' command
- * Simulates vim's `J` command by sending ⌘→ to go to the end of the line, then
+ * Simulates vim's `J` command by sending ⌘ → to go to the end of the line, then
  * DELETE to join the lines
  */
 void VIM_JOIN(void) {
@@ -371,7 +406,7 @@ void VIM_JOIN(void) {
 
 /**
  * Vim-like 'open above' command
- * Simulates vim's `O` command by sending ⌘→ to go to the start of the line,
+ * Simulates vim's `O` command by sending ⌘ → to go to the start of the line,
  * enter to move the line down, ↑ to move up to the new line, then switching to
  * insert mode.
  */
@@ -386,8 +421,8 @@ void VIM_OPEN_ABOVE(void) {
 
 /**
  * Vim-like 'change whole line' command
- * Simulates vim's `S` `cc` or `c$` commands by sending ⌘← to go to the start of the line,
- * ⌃K to kill the line, then switching to insert mode.
+ * Simulates vim's `S` `cc` or `c$` commands by sending ⌘ ← to go to the start of the line,
+ * ⌃ K to kill the line, then switching to insert mode.
  */
 void VIM_CHANGE_WHOLE_LINE(void) {
   print("\e[31mS\e[0m");
@@ -409,7 +444,7 @@ void VIM_CHANGE_WHOLE_LINE(void) {
 
 /**
  * Vim-like `delete to end` command
- * Simulates vim's `de` command by sending ⌥⇧→ then ⌘X.
+ * Simulates vim's `de` command by sending ⌥ ⇧ → then ⌘ X.
  */
 void VIM_DELETE_END(void) {
   print("\e[31me\e[0m");
@@ -422,9 +457,9 @@ void VIM_DELETE_END(void) {
 
 /**
  * Vim-like `delete whole line` command
- * Simulates vim's `dd` command by sending ⌘← to move to start of line,
- * selecting the whole line, then sending ⌘X to cut the line.
- * alternate method: ⌘⌫, ⌃K
+ * Simulates vim's `dd` command by sending ⌘ ← to move to start of line,
+ * selecting the whole line, then sending ⌘ X to cut the line.
+ * alternate method: ⌘ ⌫ , ⌃ K
  */
 void VIM_DELETE_WHOLE_LINE(void) {
   print("\e[31md\e[0m");
@@ -438,7 +473,7 @@ void VIM_DELETE_WHOLE_LINE(void) {
 
 /**
  * Vim-like `delete word` command
- * Simulates vim's `dw` command by sending ⌥⇧→→← then ⌘X to select to the start
+ * Simulates vim's `dw` command by sending ⌥ ⇧ → → ← then ⌘ X to select to the start
  * of the next word then cut.
  */
 void VIM_DELETE_WORD(void) {
@@ -467,7 +502,7 @@ void VIM_DELETE_BACK(void) {
 
 /**
  * Vim-like `delete left` command
- * Simulates vim's `dh` command by sending ⇧← then ⌘X.
+ * Simulates vim's `dh` command by sending ⇧ ← then ⌘ X.
  */
 void VIM_DELETE_LEFT(void) {
   print("\e[31mh\e[0m");
@@ -478,7 +513,7 @@ void VIM_DELETE_LEFT(void) {
 
 /**
  * Vim-like `delete right` command
- * Simulates vim's `dl` command by sending ⇧→ then ⌘X.
+ * Simulates vim's `dl` command by sending ⇧ → then ⌘ X.
  */
 void VIM_DELETE_RIGHT(void) {
   print("\e[31ml\e[0m");
@@ -692,7 +727,7 @@ void VIM_VISUAL_WORD(void) {
 
 /**
  * Vim-like `visual left` command
- * Simulates vim's `vh` command by sending ⇧←.
+ * Simulates vim's `vh` command by sending ⇧ ←.
  */
 void VIM_VISUAL_LEFT(void) {
   print("\e[31mvh\e[0m");
@@ -702,7 +737,7 @@ void VIM_VISUAL_LEFT(void) {
 
 /**
  * Vim-like `visual right` command
- * Simulates vim's `vl` command by sending ⇧→.
+ * Simulates vim's `vl` command by sending ⇧ →.
  */
 void VIM_VISUAL_RIGHT(void) {
   print("\e[31mvl\e[0m");
@@ -712,7 +747,7 @@ void VIM_VISUAL_RIGHT(void) {
 
 /**
  * Vim-like `visual up` command
- * Simulates vim's `vk` command by sending ⇧↑.
+ * Simulates vim's `vk` command by sending ⇧ ↑.
  */
 void VIM_VISUAL_UP(void) {
   print("\e[31mvk\e[0m");
@@ -722,7 +757,7 @@ void VIM_VISUAL_UP(void) {
 
 /**
  * Vim-like `visual down` command
- * Simulates vim's `vj` command by sending ⇧↓.
+ * Simulates vim's `vj` command by sending ⇧ ↓.
  */
 void VIM_VISUAL_DOWN(void) {
   print("\e[31mdj\e[0m");

@@ -2,12 +2,18 @@
 
 # Features
 
-- Kinesis-like space/backspace/enter/delete
-- Dual-function Caps Lock (CTRL / ESC)
-- Space-cadet shift keys
-- Vim emulation layers for working with native text areas in macOS (OS X) and Linux (GNOME)
-- Function/media/mouse layer
-- Record and perform custom macros on the fly
+- [x] Kinesis-like space/backspace/enter/delete
+- [x] Dual-function Caps Lock (CTRL / ESC)
+- [x] Space-cadet shift keys
+- [ ] Press both shift keys simultaneously for CAPS
+- [x] All mod keys available on the home row 
+  - [x] Tap twice and hold if you need key repeat
+- [x] BETA: Vim emulation layers for working with native text areas
+  See [vim.h](vim.h). Support for more patterns is planned.
+  - [x] macOS (OS X)
+  - [ ] Linux (GNOME)
+- [ ] Record and perform custom macros on the fly with `q` from the Vim layer
+- [x] One consolidated function/media/mouse layer
 
 # Objectives
 
@@ -19,8 +25,5 @@ be performed on default hardware. Feel proficient if stuck on a default board.
 - Cater to Vim users
   - common/repetitive operations go on the home row
   - use Left-Down-Up-Right pattern
-  - Sacrifice ability to repeat alphanumeric characters
-    Other than arrows, `-`, `=`, and so on, there is usually a better to way to
-    get somewhere than holding down, say, `j` (down).
 
-
+# Usage

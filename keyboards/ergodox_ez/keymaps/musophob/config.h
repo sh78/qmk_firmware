@@ -10,5 +10,5 @@
 #include "../../config.h"
 
 #define DISABLE_SPACE_CADET_ROLLOVER
-#define TAPPING_TOGGLE 1
-
+/* #define TAPPING_TOGGLE 1 */
+/* #define TAPPING_TERM 200 */
