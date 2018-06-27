@@ -18,7 +18,7 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  /* Insert mode
+  /* Base (Insert) mode
   *
   * ,--------------------------------------------------.           ,--------------------------------------------------.
   * |    `   |   1  |   2  |   3  |   4  |   5  |      |           |      |   6  |   7  |   8  |   9  |   0  |  CAPS  |
@@ -34,14 +34,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   *                                        ,-------------.       ,-------------.
   *                                        |      |      |       |      |      |
   *                                 ,------|------|------|       |------+------+------.
-  *                                 | BSPC |      |      |       |      |      |      |
-  *                                 |      |DELETE|------|       |------| ENTER| SPC  |
   *                                 |      |      |      |       |      |      |      |
+  *                                 | BSPC |DELETE|------|       |------| ENTER| SPC  |
+  *                                 |      |      | ⌃ F2 |       | ⌃ F8 |      |      |
   *                                 `--------------------'       `--------------------'
   */
   [BASE] = LAYOUT_ergodox(
     // Left Hand
-    KC_GRAVE       , KC_1         , KC_2         , KC_3         , KC_4         , KC_5            , X_____X ,
+    KC_GRAVE       , KC_1         , KC_2         , KC_3         , KC_4         , KC_5            , LCTL(KC_F2) ,
     KC_TAB         , KC_Q         , KC_W         , KC_E         , KC_R         , KC_T            , KC_LBRC ,
     LCTL_T(KC_ESC) , LSFT_T(KC_A) , LCTL_T(KC_S) , LALT_T(KC_D) , LGUI_T(KC_F) , ALL_T(KC_G)     ,
     KC_LSPO        , KC_Z         , KC_X         , KC_C         , KC_V         , KC_B            , KC_MINS ,
@@ -52,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_BSPC , KC_DEL  , X_____X ,
 
     // Right Hand
-    X_____X        , KC_6         , KC_7         , KC_8         , KC_9         , KC_0            , KC_CAPS         ,
+    LCTL(KC_F8)    , KC_7         , KC_7         , KC_8         , KC_9         , KC_0            , KC_CAPS         ,
     KC_RBRC        , KC_Y         , KC_U         , KC_I         , KC_O         , KC_P            , KC_BSLS         ,
                      ALL_T(KC_H)  , RGUI_T(KC_J) , RALT_T(KC_K) , RCTL_T(KC_L) , RSFT_T(KC_SCLN) , RCTL_T(KC_QUOT) ,
     KC_EQL         , KC_N         , KC_M         , KC_COMM      , KC_DOT       , KC_SLSH         , KC_RSPC         ,
@@ -63,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     X_____X , KC_ENT  , KC_SPC
   ),
 
-  /* Normal (vim) mode 
+  /* Normal (vim) mode
   * ,--------------------------------------------------.           ,--------------------------------------------------.
   * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
   * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
