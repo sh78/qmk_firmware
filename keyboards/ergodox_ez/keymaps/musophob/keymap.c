@@ -5,37 +5,16 @@
 #include "vim.h"
 
 #define VERSION_STRING QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION
-#define _______ KC_TRNS
 #define X_____X KC_TRNS
 #define TO_NORM  TT(NORM)
 #define TO_BASE  TO(BASE)
 #define TO_MDIA  TT(MDIA)
 #define TO_REACH TT(REACH)
 
-/* enum planck_keycodes { */
-/*   QWERTY = SAFE_RANGE, */
-/*   COLEMAK, */
-/*   DVORAK, */
-/*   PLOVER, */
-/*   LOWER, */
-/*   RAISE, */
-/*   BACKLIT, */
-/*   EXT_PLV, */
-/*   DYNAMIC_MACRO_RANGE, */
-/* }; */
-/* #include "dynamic_macro.h" */
-
-/* // Tap Dance Declarations */
-/* enum { */
-/*     SHIFT_A = 0, */
-/* }; */
-
-/* //Tap Dance Definitions */
-/* qk_tap_dance_action_t tap_dance_actions[] = { */
-/*   //Tap once for Esc, twice for Caps Lock */
-/*   [SHIFT_A]  = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_A) */
-/* // Other declarations would go here, separated by commas, if you have them */
-/* }; */
+/* key combos */
+/* https://github.com/qmk/qmk_firmware/pull/960 */
+/* const uint16_t PROGMEM test_combo[] = { KC_9, KC_0, COMBO_END }; */
+/* combo_t key_combos[COMBO_COUNT] = { COMBO(test_combo, KC_PWR) }; */
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
